@@ -17,7 +17,7 @@ class _bbcakeState extends State<bbcake> {
   @override
   void initState() {
     super.initState();
-    // 제미나이 AI를 활용하여 피드 리스트 생성 구현
+    // 제미나이 AI를 활용하여 피드 리스트 생성 구현하였습니다.
     feedList = [
       {
         "imagePath": "assets/cafe.jpg", 
@@ -62,7 +62,7 @@ class _bbcakeState extends State<bbcake> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        return StatefulBuilder(
+        return StatefulBuilder( // 바텀시트 내에서 댓글 추가 시 상태가 바로 반영되도록 StatefulBuilder로 구현하였습니다.
           builder: (context, setBottomSheetState) {
             List<String> currentComments = feedList[feedIndex]["comments"];
 
@@ -75,7 +75,7 @@ class _bbcakeState extends State<bbcake> {
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start, 
                 children: [
                   const Text(
                     " 댓글  쓰기  💬 ",
@@ -93,7 +93,7 @@ class _bbcakeState extends State<bbcake> {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4.0),
                           child: Text(
-                            "• ${currentComments[index]}",
+                            "• ${currentComments[index]}", // 댓글 목록을 불릿 포인트로 표시하였습니다. [출처: 바이브코딩 / Gemini AI 활용]
                             style: const TextStyle(fontSize: 14, color: Colors.black87),
                           ),
                         );
@@ -102,11 +102,11 @@ class _bbcakeState extends State<bbcake> {
                   ),
                   const Divider(),
                   
-                  Row(
+                  Row( 
                     children: [
                       Expanded(
                         child: TextField(
-                          controller: _commentController,
+                          controller: _commentController, // 댓글 입력 필드를 제미나이 AI 활용하여 구현하였습니다.
                           decoration: const InputDecoration(
                             hintText: "따뜻한 댓글을 남겨주세요",
                             border: InputBorder.none,
@@ -198,7 +198,7 @@ class _bbcakeState extends State<bbcake> {
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
                       icon: Icon(
-                        feed["isLiked"] ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+                        feed["isLiked"] ? CupertinoIcons.heart_fill : CupertinoIcons.heart,// 하트 아이콘이 좋아요 상태에 따라 채워지거나 빈 하트로 표시되도록 구현하였습니다. [출처: 바이브코딩 / Gemini AI 활용]
                         color: feed["isLiked"] ? const Color.fromARGB(255, 237, 250, 250) : const Color.fromARGB(255, 237, 250, 250),
                       ),
                     ),
@@ -219,7 +219,7 @@ class _bbcakeState extends State<bbcake> {
                     IconButton(
                       onPressed: () {
                         setState(() {
-                          feed["isBookmarked"] = !feed["isBookmarked"];
+                          feed["isBookmarked"] = !feed["isBookmarked"];// 북마크 상태 토글 구현하였습니다. [출처: 바이브코딩 / Gemini AI 활용
                         });
                       },
                       padding: EdgeInsets.zero,
@@ -233,7 +233,7 @@ class _bbcakeState extends State<bbcake> {
                 ),
               ),
 
-              Padding(
+              Padding(// 좋아요 수를 표시하는 텍스트 위젯을 제미나이 AI 활용하여 구현하였습니다.
                 padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
                 child: Text(
                   " ${feed["likeCount"]} likes",

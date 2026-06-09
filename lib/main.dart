@@ -9,8 +9,8 @@ void main() {
   
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, // 상태바 배경을 투명하게 설정 [출처: 바이브코딩 / Gemini AI 활용]
-      statusBarIconBrightness: Brightness.dark, // 시간이나 배터리 아이콘을 블랙으로 설정 [출처: 바이브코딩 / Gemini AI 활용]
+      statusBarColor: Colors.transparent, // 상태바 배경을 투명하게 설정하였습니다. [출처: 바이브코딩 / Gemini AI 활용]
+      statusBarIconBrightness: Brightness.dark, // 시간이나 배터리 아이콘을 블랙으로 설정하였습니다. [출처: 바이브코딩 / Gemini AI 활용]
     ),
   );
   runApp(const SweetFinderApp()); //앱 실행
@@ -60,7 +60,7 @@ class _CakeScratchScreenState extends State<CakeScratchScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              '당신만의 달콤한 케이크와 \n 쿠키를 찾아보세요 🩶',
+              '당신만의 달콤한 케이크와 \n 쿠키를 찾아보세요 🩶', //타이틀 텍스트입니다.
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24,
@@ -72,6 +72,8 @@ class _CakeScratchScreenState extends State<CakeScratchScreen> {
             
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
+
+              // 스크래치 위젯을 사용하여 케이크 이미지를 닦아내는 기능을 구현하였습니다. [출처: 바이브코딩 / Gemini AI 활용]
               child: Scratcher(
                 brushSize: 60,
                 threshold: 70,
@@ -134,7 +136,7 @@ class LoginScreen extends StatelessWidget {
       
       backgroundColor: const Color.fromARGB(255, 206, 200, 187),
       body: Stack(
-        // 유튜브 참고
+        // 유튜브와 네이버 카페를 참고하였습니다. [출처: 바이브코딩 / Gemini AI 활용]
         children: [
           const Positioned(
             top: 60,
@@ -267,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final Set<String> _favoriteStoreNames = {};
 
-  // 케이크 매장 속 5개 데이터 목록을 보여주기 위해 제미나이 AI 활용
+  // 케이크 매장 속 5개 데이터 목록을 보여주기 위해 제미나이 AI 활용하였습니다.
   final List<Map<String, String>> _cakeShops = [
     {
       'name': '바나나 하루키 연남', 
@@ -384,7 +386,6 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // [1] 오늘의 추천 케이크 배너 제미나이 AI 활용
             Container(
               margin: const EdgeInsets.all(16),
               height: 180,
@@ -404,6 +405,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             // [2] 카테고리 버튼들
+            // 카테고리 버튼을 가로로 배치하기 위해 제미나이 AI를 활용하였습니다.
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
@@ -444,7 +446,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 10),
 
-            // [3] 조건문(if)을 사용해 현재 카테고리에 맞는 화면 띄우기 (케이크, 쿠키, 내 주변) - 제미나이 AI 활용
+            // [3] 조건문(if)을 사용해 현재 카테고리에 맞는 화면(케이크, 쿠키, 내 주변)
+            // 케이크, 쿠키, 내 주변 카테고리에 따라 다른 화면이 보이도록 구현하였습니다. [출처: 바이브코딩 / Gemini AI 활용]
             if (_currentCategory == '케이크') ...[
               ListView.builder(
                 shrinkWrap: true,
@@ -540,7 +543,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
             if (_currentCategory == '내 주변') ...[
               Padding(
-                // 여백을 세밀하게 조절할 수 있도록 only로 세팅하기 위해 제미나이 AI 활용
                 padding: const EdgeInsets.only(top: 12.0, left: 16.0, right: 16.0, bottom: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -573,7 +575,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ] else ...[
-                      // 하트를 누르면 뜨는 가로 양방향 스크롤 카드를 위해 제미나이 AI 활용
+                      // 하트를 누르면 뜨는 가로 양방향 스크롤 카드를 위해 제미나이 AI를 활용하였습니다.
                       SizedBox(
                         height: 110,
                         child: ListView.builder(
@@ -765,7 +767,7 @@ class ShopCard extends StatelessWidget {
       child: ListTile(
         leading: const Icon(Icons.store, color: Color.fromARGB(255, 206, 200, 187), size: 40),
         title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(address),
+        subtitle: Text(address), // 매장 주소를 서브타이틀로 표시하였습니다. [출처: 바이브코딩 / Gemini AI 활용]
         trailing: Text(
           '★ $rating',
           style: const TextStyle(
@@ -778,7 +780,7 @@ class ShopCard extends StatelessWidget {
           
           bool localFavoriteStatus = isFavorited;
 
-          showModalBottomSheet(
+          showModalBottomSheet( // 매장 카드를 탭하면 상세 정보가 담긴 바텀시트가 뜨도록 구현하였습니다. [출처: 바이브코딩 / Gemini AI 활용]
             context: context,
             backgroundColor: const Color.fromARGB(255, 239, 247, 245),
             shape: const RoundedRectangleBorder(
@@ -850,7 +852,7 @@ class ShopCard extends StatelessWidget {
                         const Divider(color: Color.fromARGB(255, 206, 200, 187)),
                         const SizedBox(height: 12),
                         
-                        Row(
+                        Row(  
                           children: [
                             const Text('매장 위치', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
                             const SizedBox(width: 8),
