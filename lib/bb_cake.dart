@@ -18,6 +18,7 @@ class _bbcakeState extends State<bbcake> {
   void initState() {
     super.initState();
     // 제미나이 AI를 활용하여 피드 리스트 생성 구현하였습니다.
+    // 사진은 제가 직접 촬영한 케이크입니다. [사진 출처 : 직접 촬영]
     feedList = [
       {
         "imagePath": "assets/cafe.jpg", 

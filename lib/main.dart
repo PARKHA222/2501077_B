@@ -79,7 +79,6 @@ class _CakeScratchScreenState extends State<CakeScratchScreen> {
                 threshold: 70,
                 color: const Color.fromARGB(255, 250, 254, 242),
                 onThreshold: () {
-                  
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => const LoginScreen()),
                   );
@@ -92,7 +91,7 @@ class _CakeScratchScreenState extends State<CakeScratchScreen> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        'assets/cake.jpg',
+                        'assets/cake.jpg', // 사진은 제가 직접 촬영한 케이크입니다. [사진 출처 : 직접 촬영]
                         width: 350,
                         height: 350,
                         fit: BoxFit.cover,
@@ -270,6 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final Set<String> _favoriteStoreNames = {};
 
   // 케이크 매장 속 5개 데이터 목록을 보여주기 위해 제미나이 AI 활용하였습니다.
+  // 실제 제가 좋아하는 매장과 인터넷 검색으로 인기가 많은 매장을 섞어서 작성하였습니다. 출처 : 네이버
   final List<Map<String, String>> _cakeShops = [
     {
       'name': '바나나 하루키 연남', 
