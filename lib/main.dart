@@ -3,6 +3,7 @@ import 'package:scratcher/scratcher.dart';
 import 'bb_cake.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'dart:math';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -370,7 +371,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final List<Map<String, String>> allShops = [..._cakeShops, ..._cookieShops];
+    final List<Map<String, String>> allShops = [..._cakeShops, ..._cookieShops]; 
     final List<Map<String, String>> favoriteShops = allShops
         .where((shop) => _favoriteStoreNames.contains(shop['name']))
         .toList();
@@ -386,23 +387,70 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              margin: const EdgeInsets.all(16),
-              height: 180,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                gradient: const LinearGradient(
-                  colors: [Color.fromARGB(255, 237, 242, 229), Color.fromARGB(255, 225, 238, 242)],
+            if (_currentCategory != '내 주변') ...[
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: const Color.fromARGB(255, 245, 244, 240),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        title: const Text(
+                          "\n레몬 엔젤 케이크 50% 할인권 🧁🤍*･ﾟ｡☆", 
+                          style: TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 142, 141, 141), fontSize: 21),
+                          textAlign: TextAlign.center,
+                        ),
+                        content: const Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "디저트 할인 쿠폰이 발급되었습니다.\n매장에서 결제 시 사용하실 수 있습니다!", 
+                              style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 141, 134, 124),),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                        actions: [
+                          Center(
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); // 팝업 닫기
+                              },
+                              child: const Text(
+                                "발급 완료",
+                                style: TextStyle(color: Color.fromARGB(255, 142, 141, 141), fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(16),
+                  height: 180,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: const LinearGradient(
+                      colors: [Color.fromARGB(255, 237, 242, 229), Color.fromARGB(255, 225, 238, 242)],
+                    ),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      '오늘의 추천 케이크 \n"레몬 엔젤 케이크" 50% 할인!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Color.fromARGB(255, 176, 176, 176), fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
               ),
-              child: const Center(
-                child: Text(
-                  '오늘의 추천 케이크 \n"레몬 엔젤 케이크" 50% 할인!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Color.fromARGB(255, 176, 176, 176), fontSize: 22, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+            ], 
+
+            if (_currentCategory == '내 주변') const SizedBox(height: 25),
 
             // [2] 카테고리 버튼들
             // 카테고리 버튼을 가로로 배치하기 위해 제미나이 AI를 활용하였습니다.
@@ -493,15 +541,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: const Color.fromARGB(255, 239, 247, 245),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                   child: Padding(
-                    padding: const EdgeInsets.all(21.0),
+                    padding: const EdgeInsets.all(29.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          '내  위치를  입력해보세요  ૮ ꒰｡• . •｡꒱ ა',
+                          '    내  위치를  입력해보세요  ૮ ꒰｡• . •｡꒱ ა',
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        const SizedBox(height: 11),
+                        const SizedBox(height: 14),
                         TextField(
                           controller: _locationController,
                           decoration: const InputDecoration(
@@ -543,13 +591,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
             if (_currentCategory == '내 주변') ...[
               Padding(
-                padding: const EdgeInsets.only(top: 12.0, left: 16.0, right: 16.0, bottom: 16.0),
+                padding: const EdgeInsets.only(top: 5.0, left: 16.0, right: 16.0, bottom: 11.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Row(
                       children: [
-                        Icon(Icons.favorite, color: Color.fromARGB(255, 237, 250, 250)),
+                        Icon(Icons.favorite, color: Color.fromARGB(255, 0, 0, 0)),
                         SizedBox(width: 8),
                         Text(
                           '나만의 특별한 디저트',
@@ -557,12 +605,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                    ),
-                   const SizedBox(height: 12),
+                   const SizedBox(height: 18),
           
                     if (favoriteShops.isEmpty) ...[
                       Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.all(32),
+                        padding: const EdgeInsets.all(39),
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 134, 121, 121).withOpacity(0.1),
                           borderRadius: BorderRadius.circular(16),
@@ -577,7 +625,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ] else ...[
                       // 하트를 누르면 뜨는 가로 양방향 스크롤 카드를 위해 제미나이 AI를 활용하였습니다.
                       SizedBox(
-                        height: 110,
+                        height: 125,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: favoriteShops.length,
@@ -588,21 +636,21 @@ class _HomeScreenState extends State<HomeScreen> {
                               margin: const EdgeInsets.only(right: 12),
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 239, 247, 245),
+                                color: const Color.fromARGB(255, 244, 244, 235),
                                 borderRadius: BorderRadius.circular(16),
                              ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(Icons.store, color: Color.fromARGB(255, 206, 200, 187)),
-                                  const SizedBox(height: 6),
+                                  const Icon(Icons.store, color: Color.fromARGB(255, 209, 215, 204)),
+                                  const SizedBox(height: 11),
                                   Text(
                                     fShop['name']!,
-                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                                    style: const TextStyle(color: Color.fromARGB(255, 164, 164, 164), fontWeight: FontWeight.bold, fontSize: 13),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  Text('★ ${fShop['rating']}', style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                                  Text('★ ${fShop['rating']}', style: const TextStyle(fontSize: 12, color: Color.fromARGB(255, 147, 147, 147))),
                                 ],
                               ),
                             );
@@ -611,41 +659,257 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
 
-                    const SizedBox(height: 16),
-                  
-                   
+                    const SizedBox(height: 11),
+                
+                    // 마이페이지 확인 버튼을 만들기 위해 제미나이 AI를 활용하였습니다.
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: const Color.fromARGB(255, 245, 244, 240), // 앱 테마 크림톤
+                              
+                              insetPadding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 115.0),
+                              
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              title: const Text(
+                                "MY PAGE ",
+                                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+                                textAlign: TextAlign.center,
+                              ),
+                              content: Container(
+                                
+                                width: 320, 
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const CircleAvatar(
+                                      radius: 36,
+                                      backgroundColor: Color.fromARGB(255, 173, 196, 197),
+                                      child: Icon(CupertinoIcons.person_fill, size: 40, color: Colors.white),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    const Text(
+                                      "박하 님 🖤",
+                                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    const Text(
+                                      "스마트 IT 학과 2학년",
+                                      style: TextStyle(fontSize: 13, color: Colors.grey),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    const Divider(color: Colors.black12),
+                                    const SizedBox(height: 14),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Text("${favoriteShops.length}", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 173, 196, 197))),
+                                            const Text("즐겨찾기", style: TextStyle(fontSize: 12, color: Colors.grey)),
+                                          ],
+                                        ),
+                                        Container(width: 1, height: 30, color: Colors.black12),
+                                        const Column(
+                                          children: [
+                                            Text("1", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 173, 196, 197))),
+                                            const Text("보유 쿠폰", style: TextStyle(fontSize: 12, color: Colors.grey)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              actions: [
+                                Center(
+                                  child: TextButton(
+                                    onPressed: () => Navigator.of(context).pop(),
+                                    child: const Text(
+                                      "닫기",
+                                      style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 239, 247, 245), 
+                        minimumSize: const Size.fromHeight(70), 
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        elevation: 0,
+                      ),
+                      icon: const Icon(CupertinoIcons.person_crop_circle, color: Color.fromARGB(255, 130, 130, 130), size: 18),
+                      label: const Text('나의 마이페이지', style: TextStyle(color: Color.fromARGB(255, 130, 130, 130), fontSize: 15, fontWeight: FontWeight.bold)),
+                    ),
+
+                    const SizedBox(height: 11), 
+
                     ElevatedButton.icon(
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                           builder: (context) => const bbcake(storeName: "나만의 특별한 디저트"),
+                            builder: (context) => const bbcake(storeName: "나만의 특별한 디저트"),
                           ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 237, 250, 250), 
-                        minimumSize: const Size.fromHeight(60),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+                        backgroundColor: const Color.fromARGB(255, 239, 247, 245), 
+                        minimumSize: const Size.fromHeight(70), 
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                         elevation: 0,
                       ),
                       icon: const Icon(CupertinoIcons.square_list, color: Color.fromARGB(255, 130, 130, 130), size: 18),
-                      label: const Text(
-                        '디저트  덕후들의  비밀  리뷰를  만나보세요',
-                        style: TextStyle(color: Color.fromARGB(255, 130, 130, 130), fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
+                      label: const Text('디저트  덕후들의  비밀  리뷰를  만나보세요', style: TextStyle(color: Color.fromARGB(255, 130, 130, 130), fontSize: 15, fontWeight: FontWeight.bold)),
                     ),
-                  ],
-                ),
-              ),
-            ],
-          const SizedBox(height: 30), // 맨 아래 안전 마진 여백
-          ],
-        ),
-      ),
-    );
+
+                    const SizedBox(height: 11),
+
+                    // 오늘의 운세 디저트 뽑기 버튼
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        final List<String> fortuneDesserts = [
+                          "🍵 말차 화이트 쿠키\n[쌉싸름한 말차와 달콤한 쿠키가 마음을 녹여줄 거예요]",
+                        ];
+
+                        final random = Random();
+                        final randomIndex = random.nextInt(fortuneDesserts.length);
+                        final selectedFortune = fortuneDesserts[randomIndex];
+
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false, 
+                          builder: (BuildContext context) {
+                            int clickCount = 0;
+
+                            return StatefulBuilder(
+                              builder: (context, setDialogState) {
+                                return AlertDialog(
+                                  backgroundColor: const Color.fromARGB(255, 245, 244, 240),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                  
+                                  insetPadding: const EdgeInsets.symmetric(
+                                    horizontal: 40.0, 
+                                    vertical: 10.0,
+                                  ),
+
+                                  title: const Text(
+                                    "오늘의 디저트 운세  `⎚⩊⎚´ -✧",
+                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87, fontSize: 18),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  content: SizedBox(
+                                    width: double.maxFinite,
+                                    height: 170, 
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        if (clickCount == 0) ...[
+                                          const Text(
+                                            "쿠키를 눌러 오늘의 운세 디저트를 알아보세요 !", 
+                                            style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 188, 188, 168), fontWeight: FontWeight.bold, height: 1.0),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(height: 25),
+                                          GestureDetector(
+                                            onTap: () { setDialogState(() { clickCount = 1; }); },
+                                            child: const Stack(
+                                              alignment: Alignment.center, 
+                                              children: [
+                                                Text("🥠", style: TextStyle(fontSize: 70)),
+                                              ],
+                                            ),
+                                          ),
+                                        ] else if (clickCount == 1) ...[
+                                          const Text(
+                                            "한 번 더 누르면 포춘 쿠키가 깨집니다 한 번 더!",
+                                            style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 188, 188, 168), fontWeight: FontWeight.bold, height: 1.0),
+                                            
+                                          ),
+                                          const SizedBox(height: 25),
+                                          GestureDetector(
+                                            onTap: () { setDialogState(() { clickCount = 2; }); },
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                const Text("🥠", style: TextStyle(fontSize: 70)),
+                                                const Positioned(
+                                                  top: 15, 
+                                                  child: Text("💥", style: TextStyle(fontSize: 40)), // 이모지를 합치기 위해 제미나이 AI를 활용하였습니다.
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ] else ...[
+                                          const Text(
+                                            "오늘 박하 님에게         \n행운을 배달해 줄 디저트는 바로 바로 ~~~",
+                                            style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 156, 172, 191), fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(height: 17),
+                                          Container(
+                                            width: double.infinity,
+                                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                            decoration: BoxDecoration(
+                                              color: const Color.fromARGB(255, 232, 241, 240),
+                                              borderRadius: BorderRadius.circular(12),
+                                            ),
+                                            child: Text(
+                                              selectedFortune,
+                                              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 177, 164, 143), height: 1.4),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ],
+                                        const SizedBox(height: 10),
+                                      ],
+                                    ),
+                                  ), // SizedBox 마감
+                                  
+                                  actions: [
+                                    Center(
+                                      child: TextButton(
+                                        onPressed: () => Navigator.of(context).pop(),
+                                        child: Text(
+                                          clickCount < 2 ? "다음에 뽑기" : "운세 확인 완료",
+                                          style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 15),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 239, 247, 245), 
+                        minimumSize: const Size.fromHeight(70), 
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        elevation: 0,
+                      ),
+                      icon: const Icon(CupertinoIcons.gift, color: Color.fromARGB(255, 140, 130, 120), size: 18),
+                      label: const Text('오늘의 운세 디저트를 뽑아보자 !', style: TextStyle(color: Color.fromARGB(255, 130, 130, 130), fontSize: 15, fontWeight: FontWeight.bold)),
+                    ),
+                  ], 
+                ), 
+              ), 
+            ], 
+            const SizedBox(height: 20), 
+          ], 
+        ), 
+      ), 
+    ); 
   }
 }
 // ===================================================================
@@ -873,7 +1137,7 @@ class ShopCard extends StatelessWidget {
                                 ),
                                 child: Icon(
                                   localFavoriteStatus ? Icons.favorite : Icons.favorite_border,
-                                  color: localFavoriteStatus ? const Color.fromARGB(255, 225, 242, 240) : Colors.white,
+                                  color: localFavoriteStatus ? const Color.fromARGB(255, 0, 0, 0) : Colors.white,
                                   size: 14,
                                 ),
                               ),

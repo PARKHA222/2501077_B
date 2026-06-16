@@ -51,7 +51,8 @@ class _bbcakeState extends State<bbcake> {
   
   final TextEditingController _commentController = TextEditingController();
 
-  // 말풍선 클릭 시 선택한 피드의 댓글창을 열어주는 함수 [출처: 바이브코딩 / Gemini AI 활용으로 구현]
+  // 말풍선 클릭 시 선택한 피드의 댓글창을 열어주는 함수
+  // 수업 시간에 배운 것과 유튜브를 참고하여 구현하였습니다.
   void _showCommentBottomSheet(int feedIndex) {
     showModalBottomSheet(
       context: context,
@@ -106,7 +107,7 @@ class _bbcakeState extends State<bbcake> {
                         child: TextField(
                           controller: _commentController, // 댓글 입력 필드를 제미나이 AI 활용하여 구현하였습니다.
                           decoration: const InputDecoration(
-                            hintText: "따뜻한 댓글을 남겨주세요",
+                            hintText: "따뜻한 댓글을 남겨주세요",  // [출처: 바이브코딩 / Gemini AI 활용으로 구현]
                             border: InputBorder.none,
                           ),
                         ),
