@@ -3,9 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class bbcake extends StatefulWidget {
   final String storeName;
-
   const bbcake({super.key, required this.storeName});
-
   @override
   State<bbcake> createState() => _bbcakeState();
 }
@@ -27,7 +25,7 @@ class _bbcakeState extends State<bbcake> {
         "isBookmarked": false,
         "likeCount": 21,
         "date": " 26/06/08",
-        "comments": [" 쿠키도 맛있지만 커피가 엄청 맛있는 곳 !"]
+        "comments": [" 쿠키도 맛있지만 커피가 진짜 맛있는 곳  ☕"]
       },
       {
         "imagePath": "assets/cafe2.jpg", 
@@ -36,7 +34,7 @@ class _bbcakeState extends State<bbcake> {
         "isBookmarked": false,
         "likeCount": 54,
         "date": " 26/06/07",
-        "comments": [" 여긴 갓 구운 소금빵이 최고입니댯 ദി >⩊<︎︎ 𐦯"]
+        "comments": [" 초콜릿 케이크의 꾸덕함이 예술입니댯 ദി >⩊<︎︎ 𐦯"]
       },
       {
         "imagePath": "assets/cafe3.jpg", 
@@ -45,7 +43,7 @@ class _bbcakeState extends State<bbcake> {
         "isBookmarked": false,
         "likeCount": 101,
         "date": " 26/06/05",
-        "comments": [" 초코 케이크 꾸덕함이 예술이에요 ㅠ ..ㅠ"]
+        "comments": [" 아늑한 분위기와 달콤한 허니브레드의 조합 !"]
       },
     ];
   }
@@ -83,7 +81,6 @@ class _bbcakeState extends State<bbcake> {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.brown),
                   ),
                   const SizedBox(height: 14),
-                  
                   
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxHeight: 150),
@@ -151,6 +148,7 @@ class _bbcakeState extends State<bbcake> {
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 92, 92, 92),
         elevation: 0,
+        scrolledUnderElevation: 0,
       ),
       body: ListView.builder(
         itemCount: feedList.length,
